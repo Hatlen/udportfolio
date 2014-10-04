@@ -52,14 +52,16 @@
       <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
     </footer>
 
-    <script src="http://www.google-analytics.com/analytics.js" async>
+    <script>
       (function(w,g){w['GoogleAnalyticsObject']=g;
       w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
 
       // TODO: replace with your Google Analytics profile ID.
-      ga('create', 'UA-55416825-1');
+      ga('create', 'UA-55416825-1', 'auto');
       ga('send', 'pageview');
+    
     </script>
+    <script src="http://www.google-analytics.com/analytics.js" async></script>
     <script async src="js/perfmatters.js"></script>
   </body>
 </html>
