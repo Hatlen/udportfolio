@@ -85,13 +85,25 @@ module.exports = function(grunt) {
         }]
       },
     },
+    inline: {
+      dist: {
+        options: {
+          cssmin: true,
+          uglify: true
+        },
+        src: 'index-src.html',
+        dest: 'index.html'
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-mkdir');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-responsive-images');
+  grunt.loadNpmTasks('grunt-inline');
   grunt.registerTask('make-images', ['clean', 'mkdir', 'copy', 'responsive_images']);
+  grunt.registerTask('inline-stylesheet', ['inline']);
 
-  grunt.registerTask('default', ['make-images']);
+  grunt.registerTask('default', ['make-images', 'inline-stylesheet']);
 };
