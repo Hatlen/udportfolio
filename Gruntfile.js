@@ -33,32 +33,24 @@ module.exports = function(grunt) {
           cwd: 'img_src/',
           dest: 'img/'
         }]
-      }
-    },
-    // not in use yet
-    responsive_views_images:{
-      dev: {
+      },
+      dev2: {
         options: {
           engine: 'im',
           sizes: [{
-            width: 100,
+            width: 70,
             quality: 30,
-            name: '@1x'
-          }, {
-            width: 200,
-            quality: 30,
-            name: '@2x'
+            rename: false
           }]
         },
         files: [{
-          expand: true,
-          src: ['*.{gif,jpg,png}'],
-          cwd: 'views/images_src/',
-          dest: 'views/images/'
+            expand: true,
+            src: ['profilepic.jpg'],
+            cwd: 'img_src/',
+            dest: 'img/'
         }]
       }
     },
-
     /* Clear out the images directory if it exists */
     clean: {
       dev: {
