@@ -13,6 +13,7 @@ module.exports = function(grunt) {
       dev: {
         options: {
           engine: 'im',
+          newFilesOnly: false,
           sizes: [{
             width: 100,
             height: 62,
@@ -27,30 +28,62 @@ module.exports = function(grunt) {
             aspectRatio: false
           }]
         },
-        files: [{
-          expand: true,
-          src: ['pizzeria.jpg'],
-          cwd: 'img_src/',
-          dest: 'img/'
-        }]
+        files: {
+          'img/pizzeria.jpg': 'img_src/pizzeria.jpg'
+        }
       },
       /* this task doesn't override the already copied files, and is overriden
       * by the copy task if you put it before this task */
       dev2: {
         options: {
+          newFilesOnly: false,
           engine: 'im',
+          rename: false,
+          quality: 70
+        },
+        files: {
+          'img/profilepic.jpg': 'img_src/profilepic.jpg'
+        }
+      },
+      dev3: {
+        options: {
+          newFilesOnly: false,
+          engine: 'im',
+          quality: 50,
+          rename: false
+        },
+        files: {
+          'img/cam_be_like.jpg': 'img_src/cam_be_like.jpg',
+          'views/images/pizza.png': 'views/images_src/pizza.png'
+        }
+      },
+      dev4: {
+        options: {
+          newFilesOnly: false,
+          engine: 'im',
+          quality: 50,
+          rename: false,
           sizes: [{
-            width: 70,
-            quality: 75,
-            rename: false
+            width: 720
           }]
         },
-        files: [{
-            expand: true,
-            src: ['profilepic.jpg'],
-            cwd: 'img_src/',
-            dest: 'img/'
-        }]
+        files: {
+          'views/images/pizzeria.jpg': 'views/images_src/pizzeria.jpg'
+        }
+      },
+      dev4: {
+        options: {
+          newFilesOnly: false,
+          engine: 'im',
+          quality: 70,
+          rename: false,
+          sizes: [{
+            width: 602
+          }]
+        },
+        files: {
+          'img/mobilewebdev.jpg': 'img_src/mobilewebdev.jpg'
+        }
       }
     },
     /* Clear out the images directory if it exists */
@@ -85,8 +118,10 @@ module.exports = function(grunt) {
           cssmin: true,
           uglify: true
         },
-        src: 'index-src.html',
-        dest: 'index.html'
+        files: {
+          'index.html': 'index-src.html',
+          'views/pizza.html': 'views/pizza-src.html'
+        }
       }
     },
     cssUrlEmbed: {
@@ -108,7 +143,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-inline');
   grunt.loadNpmTasks('grunt-css-url-embed');
-  grunt.registerTask('make-images', ['clean', 'mkdir', 'responsive_images', 'copy']);
+  grunt.registerTask('make-images', ['clean', 'mkdir', 'copy', 'responsive_images']);
   grunt.registerTask('inline-stylesheet', ['inline']);
 
   grunt.registerTask('default', ['make-images', 'cssUrlEmbed', 'inline-stylesheet']);
