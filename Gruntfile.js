@@ -34,12 +34,14 @@ module.exports = function(grunt) {
           dest: 'img/'
         }]
       },
+      /* this task doesn't override the already copied files, and is overriden
+      * by the copy task if you put it before this task */
       dev2: {
         options: {
           engine: 'im',
           sizes: [{
             width: 70,
-            quality: 30,
+            quality: 75,
             rename: false
           }]
         },
@@ -86,6 +88,17 @@ module.exports = function(grunt) {
         src: 'index-src.html',
         dest: 'index.html'
       }
+    },
+    cssUrlEmbed: {
+      encodeDirectly: {
+        options: {
+          inclusive: true
+        },
+        files: {
+          'css/open-sans.css': ['css/open-sans-src.css']
+        },
+        expand: true
+      }
     }
   });
 
@@ -94,8 +107,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-inline');
-  grunt.registerTask('make-images', ['clean', 'mkdir', 'copy', 'responsive_images']);
+  grunt.loadNpmTasks('grunt-css-url-embed');
+  grunt.registerTask('make-images', ['clean', 'mkdir', 'responsive_images', 'copy']);
   grunt.registerTask('inline-stylesheet', ['inline']);
 
-  grunt.registerTask('default', ['make-images', 'inline-stylesheet']);
+  grunt.registerTask('default', ['make-images', 'cssUrlEmbed', 'inline-stylesheet']);
 };
